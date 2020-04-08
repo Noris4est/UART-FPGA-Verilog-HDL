@@ -1,0 +1,297 @@
+Analysis & Synthesis report for UART_FPGA_RX
+Thu Apr 09 00:31:44 2020
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. State Machine - |UART_FPGA_RX|REG_STATE
+  9. Registers Removed During Synthesis
+ 10. General Register Statistics
+ 11. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 12. Parameter Settings for User Entity Instance: Top-level Entity: |UART_FPGA_RX
+ 13. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++---------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                              ;
++-----------------------------+---------------------------------------------+
+; Analysis & Synthesis Status ; Successful - Thu Apr 09 00:31:44 2020       ;
+; Quartus Prime Version       ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name               ; UART_FPGA_RX                                ;
+; Top-level Entity Name       ; UART_FPGA_RX                                ;
+; Family                      ; MAX II                                      ;
+; Total logic elements        ; 63                                          ;
+; Total pins                  ; 12                                          ;
+; Total virtual pins          ; 0                                           ;
+; UFM blocks                  ; 0 / 1 ( 0 % )                               ;
++-----------------------------+---------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                              ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                           ; Setting            ; Default Value      ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                           ; EPM240T100C5       ;                    ;
+; Top-level entity name                                            ; UART_FPGA_RX       ; UART_FPGA_RX       ;
+; Family name                                                      ; MAX II             ; Cyclone V          ;
+; Use smart compilation                                            ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                      ; Off                ; Off                ;
+; Restructure Multiplexers                                         ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                              ; Off                ; Off                ;
+; Preserve fewer node names                                        ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                    ; Enable             ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                     ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                         ; Auto               ; Auto               ;
+; Safe State Machine                                               ; Off                ; Off                ;
+; Extract Verilog State Machines                                   ; On                 ; On                 ;
+; Extract VHDL State Machines                                      ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                       ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                   ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                          ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                        ; On                 ; On                 ;
+; Parallel Synthesis                                               ; On                 ; On                 ;
+; NOT Gate Push-Back                                               ; On                 ; On                 ;
+; Power-Up Don't Care                                              ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                     ; Off                ; Off                ;
+; Remove Duplicate Registers                                       ; On                 ; On                 ;
+; Ignore CARRY Buffers                                             ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                           ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                            ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                        ; Off                ; Off                ;
+; Ignore LCELL Buffers                                             ; Off                ; Off                ;
+; Ignore SOFT Buffers                                              ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                   ; Off                ; Off                ;
+; Optimization Technique                                           ; Balanced           ; Balanced           ;
+; Carry Chain Length                                               ; 70                 ; 70                 ;
+; Auto Carry Chains                                                ; On                 ; On                 ;
+; Auto Open-Drain Pins                                             ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                            ; Off                ; Off                ;
+; Auto Shift Register Replacement                                  ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                  ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                    ; On                 ; On                 ;
+; Allow Synchronous Control Signals                                ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                           ; Off                ; Off                ;
+; Auto Resource Sharing                                            ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing              ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                ; Off                ; Off                ;
+; Report Parameter Settings                                        ; On                 ; On                 ;
+; Report Source Assignments                                        ; On                 ; On                 ;
+; Report Connectivity Checks                                       ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                               ; Off                ; Off                ;
+; Synchronization Register Chain Length                            ; 2                  ; 2                  ;
+; Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                  ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report         ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report               ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report        ; 100                ; 100                ;
+; Clock MUX Protection                                             ; On                 ; On                 ;
+; Block Design Naming                                              ; Auto               ; Auto               ;
+; Synthesis Effort                                                 ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal     ; On                 ; On                 ;
+; Analysis & Synthesis Message Level                               ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                      ; Auto               ; Auto               ;
++------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 4           ;
+; Maximum allowed            ; 2           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
++----------------------------+-------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                       ;
++----------------------------------+-----------------+------------------------+----------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                         ; Library ;
++----------------------------------+-----------------+------------------------+----------------------------------------------------------------------+---------+
+; UART_FPGA_RX.v                   ; yes             ; User Verilog HDL File  ; C:/KP_EIMT/Clear_KP/Project_QUARTUS_18_1/UART FPGA_RX/UART_FPGA_RX.v ;         ;
++----------------------------------+-----------------+------------------------+----------------------------------------------------------------------+---------+
+
+
++--------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary            ;
++---------------------------------------------+----------+
+; Resource                                    ; Usage    ;
++---------------------------------------------+----------+
+; Total logic elements                        ; 63       ;
+;     -- Combinational with no register       ; 31       ;
+;     -- Register only                        ; 0        ;
+;     -- Combinational with a register        ; 32       ;
+;                                             ;          ;
+; Logic element usage by number of LUT inputs ;          ;
+;     -- 4 input functions                    ; 31       ;
+;     -- 3 input functions                    ; 9        ;
+;     -- 2 input functions                    ; 21       ;
+;     -- 1 input functions                    ; 2        ;
+;     -- 0 input functions                    ; 0        ;
+;                                             ;          ;
+; Logic elements by mode                      ;          ;
+;     -- normal mode                          ; 50       ;
+;     -- arithmetic mode                      ; 13       ;
+;     -- qfbk mode                            ; 0        ;
+;     -- register cascade mode                ; 0        ;
+;     -- synchronous clear/load mode          ; 14       ;
+;     -- asynchronous clear/load mode         ; 0        ;
+;                                             ;          ;
+; Total registers                             ; 32       ;
+; Total logic cells in carry chains           ; 14       ;
+; I/O pins                                    ; 12       ;
+; Maximum fan-out node                        ; IN_CLOCK ;
+; Maximum fan-out                             ; 32       ;
+; Total fan-out                               ; 268      ;
+; Average fan-out                             ; 3.57     ;
++---------------------------------------------+----------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                 ;
++----------------------------+-------------+--------------+------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+---------------------+--------------+--------------+
+; Compilation Hierarchy Node ; Logic Cells ; LC Registers ; UFM Blocks ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Carry Chain LCs ; Packed LCs ; Full Hierarchy Name ; Entity Name  ; Library Name ;
++----------------------------+-------------+--------------+------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+---------------------+--------------+--------------+
+; |UART_FPGA_RX              ; 63 (63)     ; 32           ; 0          ; 12   ; 0            ; 31 (31)      ; 0 (0)             ; 32 (32)          ; 14 (14)         ; 0 (0)      ; |UART_FPGA_RX       ; UART_FPGA_RX ; work         ;
++----------------------------+-------------+--------------+------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+---------------------+--------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |UART_FPGA_RX|REG_STATE                                                                                                                                          ;
++-------------------------------+-----------------------------+------------------------------+------------------------------+----------------------+-------------------------------+
+; Name                          ; REG_STATE.STATE_RX_STOP_BIT ; REG_STATE.STATE_RX_DATA_BITS ; REG_STATE.STATE_RX_START_BIT ; REG_STATE.STATE_WAIT ; REG_STATE.STATE_RX_PARITY_BIT ;
++-------------------------------+-----------------------------+------------------------------+------------------------------+----------------------+-------------------------------+
+; REG_STATE.STATE_WAIT          ; 0                           ; 0                            ; 0                            ; 0                    ; 0                             ;
+; REG_STATE.STATE_RX_START_BIT  ; 0                           ; 0                            ; 1                            ; 1                    ; 0                             ;
+; REG_STATE.STATE_RX_DATA_BITS  ; 0                           ; 1                            ; 0                            ; 1                    ; 0                             ;
+; REG_STATE.STATE_RX_STOP_BIT   ; 1                           ; 0                            ; 0                            ; 1                    ; 0                             ;
+; REG_STATE.STATE_RX_PARITY_BIT ; 0                           ; 0                            ; 0                            ; 1                    ; 1                             ;
++-------------------------------+-----------------------------+------------------------------+------------------------------+----------------------+-------------------------------+
+
+
++--------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                             ;
++---------------------------------------+----------------------------------------+
+; Register name                         ; Reason for Removal                     ;
++---------------------------------------+----------------------------------------+
+; REG_STATE~7                           ; Lost fanout                            ;
+; REG_STATE~8                           ; Lost fanout                            ;
+; REG_BIT_INDEX[3]                      ; Stuck at GND due to stuck port data_in ;
+; Total Number of Removed Registers = 3 ;                                        ;
++---------------------------------------+----------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 32    ;
+; Number of registers using Synchronous Clear  ; 14    ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 17    ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------+
+; 6:1                ; 14 bits   ; 56 LEs        ; 14 LEs               ; 42 LEs                 ; Yes        ; |UART_FPGA_RX|REG_CLOCK_COUNT[0] ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 6 LEs                ; 4 LEs                  ; No         ; |UART_FPGA_RX|Selector3          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------+
+
+
++------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Top-level Entity: |UART_FPGA_RX ;
++--------------------------------+----------+----------------------------------+
+; Parameter Name                 ; Value    ; Type                             ;
++--------------------------------+----------+----------------------------------+
+; UART_BAUD_RATE                 ; 9600     ; Signed Integer                   ;
+; CLOCK_FREQUENCY                ; 50000000 ; Signed Integer                   ;
+; PARITY                         ; 1        ; Signed Integer                   ;
+; NUM_OF_DATA_BITS_IN_PACK       ; 8        ; Signed Integer                   ;
+; CLKS_PER_BIT_LOG_2             ; 13       ; Signed Integer                   ;
+; NUM_OF_DATA_BITS_IN_PACK_LOG_2 ; 3        ; Signed Integer                   ;
++--------------------------------+----------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+    Info: Processing started: Thu Apr 09 00:31:11 2020
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off UART_FPGA_RX -c UART_FPGA_RX
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file uart_fpga_rx.v
+    Info (12023): Found entity 1: UART_FPGA_RX File: C:/KP_EIMT/Clear_KP/Project_QUARTUS_18_1/UART FPGA_RX/UART_FPGA_RX.v Line: 1
+Info (12127): Elaborating entity "UART_FPGA_RX" for the top level hierarchy
+Warning (10230): Verilog HDL assignment warning at UART_FPGA_RX.v(72): truncated value with size 32 to match size of target (14) File: C:/KP_EIMT/Clear_KP/Project_QUARTUS_18_1/UART FPGA_RX/UART_FPGA_RX.v Line: 72
+Warning (10230): Verilog HDL assignment warning at UART_FPGA_RX.v(77): truncated value with size 32 to match size of target (14) File: C:/KP_EIMT/Clear_KP/Project_QUARTUS_18_1/UART FPGA_RX/UART_FPGA_RX.v Line: 77
+Warning (10230): Verilog HDL assignment warning at UART_FPGA_RX.v(83): truncated value with size 32 to match size of target (4) File: C:/KP_EIMT/Clear_KP/Project_QUARTUS_18_1/UART FPGA_RX/UART_FPGA_RX.v Line: 83
+Warning (10230): Verilog HDL assignment warning at UART_FPGA_RX.v(97): truncated value with size 32 to match size of target (14) File: C:/KP_EIMT/Clear_KP/Project_QUARTUS_18_1/UART FPGA_RX/UART_FPGA_RX.v Line: 97
+Warning (10230): Verilog HDL assignment warning at UART_FPGA_RX.v(140): truncated value with size 32 to match size of target (4) File: C:/KP_EIMT/Clear_KP/Project_QUARTUS_18_1/UART FPGA_RX/UART_FPGA_RX.v Line: 140
+Warning (10230): Verilog HDL assignment warning at UART_FPGA_RX.v(103): truncated value with size 32 to match size of target (1) File: C:/KP_EIMT/Clear_KP/Project_QUARTUS_18_1/UART FPGA_RX/UART_FPGA_RX.v Line: 103
+Warning (10230): Verilog HDL assignment warning at UART_FPGA_RX.v(111): truncated value with size 32 to match size of target (14) File: C:/KP_EIMT/Clear_KP/Project_QUARTUS_18_1/UART FPGA_RX/UART_FPGA_RX.v Line: 111
+Info (17049): 2 registers lost all their fanouts during netlist optimizations.
+Info (21057): Implemented 75 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 2 input pins
+    Info (21059): Implemented 10 output pins
+    Info (21061): Implemented 63 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 8 warnings
+    Info: Peak virtual memory: 4720 megabytes
+    Info: Processing ended: Thu Apr 09 00:31:44 2020
+    Info: Elapsed time: 00:00:33
+    Info: Total CPU time (on all processors): 00:00:53
+
+
