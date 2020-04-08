@@ -1,0 +1,11 @@
+Fitter Status : Successful - Thu Apr 09 00:31:50 2020
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : UART_FPGA_RX
+Top-level Entity Name : UART_FPGA_RX
+Family : MAX II
+Device : EPM240T100C5
+Timing Models : Final
+Total logic elements : 63 / 240 ( 26 % )
+Total pins : 12 / 80 ( 15 % )
+Total virtual pins : 0
+UFM blocks : 0 / 1 ( 0 % )
