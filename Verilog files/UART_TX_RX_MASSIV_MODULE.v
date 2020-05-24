@@ -20,7 +20,7 @@ module UART_TX_RX_MASSIV_MODULE
 	output reg OUT_TX_ACTIVE,//сигнальная линия занятости узла TX
 	output reg OUT_TX_DONE,//сигнальная линия окончания передачи модулем TX
 	
-	input IN_RX_CLEAR_BUFFER,//сигнальная линия для очистки буфера принятых бит
+	input IN_RX_CLEAR_BUFFER,//сигнальная линия для очистки буфера принятых бит. Должен быть коротким.
 	output reg [NUM_OF_DATA_BITS_IN_PACK*RX_MASSIV_DEEP-1:0] OUT_RX_DATA_MASSIV,//выходной вектор принятых данных
 	output reg OUT_RX_ERROR,//сигнальная линия ошибки приема
 	output reg [RX_MASSIV_DEEP_LOG_2:0] OUT_RX_NUM_OF_DATA_PACKS_READY,//число принятых пакетов с момента последней очистки буфера
@@ -150,7 +150,7 @@ module UART_TX_RX_MASSIV_MODULE
 	begin
 		if(IN_RX_CLEAR_BUFFER)
 		begin
-			OUT_RX_NUM_OF_DATA_PACKS_READY<=1;
+			OUT_RX_NUM_OF_DATA_PACKS_READY<=0;
 			OUT_RX_ERROR<=0;
 			OUT_RX_DATA_MASSIV<=0;
 		end
