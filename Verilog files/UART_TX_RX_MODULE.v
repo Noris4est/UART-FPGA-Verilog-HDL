@@ -1,23 +1,24 @@
 module UART_TX_RX_MODULE
 #(
-	parameter UART_BAUD_RATE				=	9600,
-   parameter CLOCK_FREQUENCY				=	50000000,
-   parameter PARITY							=	1,
-   parameter NUM_OF_DATA_BITS_IN_PACK	=	8,
-	parameter NUMBER_STOP_BITS				=	2
+	parameter UART_BAUD_RATE				=	9600,//битрейт передачи
+   parameter CLOCK_FREQUENCY				=	50000000,//частота тактового сигнала IN_CLOCK
+   parameter PARITY							=	1,//Параметр бита четности/нечетности
+   parameter NUM_OF_DATA_BITS_IN_PACK	=	8,//число информационных бит в пакете 
+	parameter NUMBER_STOP_BITS				=	2//число стоп-битов а пакете
 )
 (
-	input       IN_CLOCK,
-   input       IN_TX_LAUNCH,
-   input [NUM_OF_DATA_BITS_IN_PACK-1:0] IN_TX_DATA, 
+	input       IN_CLOCK,											//тактовый сигнал
+   input       IN_TX_LAUNCH,										//сигнальная линия для инициализации передачи
+   input [NUM_OF_DATA_BITS_IN_PACK-1:0] IN_TX_DATA, 		//вектор данных для передачи при следующей транзакции
+	//данный вектор защелкивается во внутреннем регистре модуля при иниализации передачи.
 	
-   output   OUT_TX_ACTIVE,
-   output   OUT_TX_DONE,
-	output  	OUT_TX_STOP_BIT_ACTIVE,	
-	output 	OUT_TX_START_BIT_ACTIVE,			
-   output   OUT_RX_DATA_READY,									
-   output   [NUM_OF_DATA_BITS_IN_PACK-1:0] OUT_RX_DATA,	
-	output   OUT_RX_ERROR,
+   output   OUT_TX_ACTIVE,											//сигнальная линия активности передаточного узла TX
+   output   OUT_TX_DONE,											//сигнальная линия окончания передачи пакета
+	output  	OUT_TX_STOP_BIT_ACTIVE,								//сигнальная линия передачи стоп бита модулем TX
+	output 	OUT_TX_START_BIT_ACTIVE,							//сигнальная линия передачи старт бита модулем TX
+   output   OUT_RX_DATA_READY,									//сигнальная линия готовности данных OUT_RX_DATA приемника 
+   output   [NUM_OF_DATA_BITS_IN_PACK-1:0] OUT_RX_DATA,	//вектор данных, принятый приемником RX 
+	output   OUT_RX_ERROR,											//сигнальная линия ошибки приема последнего пакета
 	
 	
 	input        IN_RX_SERIAL,		//RX
@@ -46,7 +47,7 @@ module UART_TX_RX_MODULE
 		.OUT_TX_DONE(OUT_TX_DONE),
 		.OUT_TX_STOP_BIT_ACTIVE(OUT_TX_STOP_BIT_ACTIVE),
 		.OUT_TX_START_BIT_ACTIVE(OUT_TX_START_BIT_ACTIVE)
-	);
+	);//подключение модуля TX
 	
 	UART_FPGA_RX #(
 		.UART_BAUD_RATE(UART_BAUD_RATE),
@@ -63,6 +64,6 @@ module UART_TX_RX_MODULE
 		.OUT_RX_DATA_READY(OUT_RX_DATA_READY),
 		.OUT_RX_DATA(OUT_RX_DATA),
 		.OUT_RX_ERROR(OUT_RX_ERROR)
-	);
+	); //подключение модуля RX
 	
 endmodule

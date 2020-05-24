@@ -1,32 +1,32 @@
 module UART_TX_RX_MASSIV_MODULE
 #(
-	parameter UART_BAUD_RATE				=	9600,
-   parameter CLOCK_FREQUENCY				=	50000000,
-   parameter PARITY							=	1,
-   parameter NUM_OF_DATA_BITS_IN_PACK	=	8,
-	parameter NUMBER_STOP_BITS				=	2,
-	parameter TX_MASSIV_DEEP				=	4,
-	parameter RX_MASSIV_DEEP				=	4,
-	parameter RX_MASSIV_DEEP_LOG_2=$clog2(RX_MASSIV_DEEP),
+	parameter UART_BAUD_RATE				=	9600,//битрейт передачи
+   parameter CLOCK_FREQUENCY				=	50000000,//частота сигнала IN_CLOCK
+   parameter PARITY							=	1,//параметр бита четности
+   parameter NUM_OF_DATA_BITS_IN_PACK	=	8,//кол-во информационных бит в элементарной транзакции
+	parameter NUMBER_STOP_BITS				=	2,//кол-во стоп-битов 
+	parameter TX_MASSIV_DEEP				=	4,//глубина буфера TX
+	parameter RX_MASSIV_DEEP				=	4,//глубина буфера RX	
+	parameter RX_MASSIV_DEEP_LOG_2=$clog2(RX_MASSIV_DEEP),//определение размерности соответствующих регистров
 	parameter TX_MASSIV_DEEP_LOG_2=$clog2(TX_MASSIV_DEEP)
 )
 (
-	input IN_CLOCK,
-	input wire [NUM_OF_DATA_BITS_IN_PACK*TX_MASSIV_DEEP-1:0] IN_TX_DATA_MASSIV,
+	input IN_CLOCK,//входной тактовый сигнал
+	input wire [NUM_OF_DATA_BITS_IN_PACK*TX_MASSIV_DEEP-1:0] IN_TX_DATA_MASSIV,//входной массив данных для передачи
 	
-	input [TX_MASSIV_DEEP_LOG_2:0] IN_TX_NUMBER_OF_PACKS_TO_SEND,
-	input IN_TX_LAUNCH,
+	input [TX_MASSIV_DEEP_LOG_2:0] IN_TX_NUMBER_OF_PACKS_TO_SEND,//число пакетов, которые нужно отправить при следующей инициализации транзакции
+	input IN_TX_LAUNCH,//сигнальная линия инициализации транзакции
 	
-	output reg OUT_TX_ACTIVE,
-	output reg OUT_TX_DONE,
+	output reg OUT_TX_ACTIVE,//сигнальная линия занятости узла TX
+	output reg OUT_TX_DONE,//сигнальная линия окончания передачи модулем TX
 	
-	input IN_RX_CLEAR_BUFFER,	
-	output reg [NUM_OF_DATA_BITS_IN_PACK*RX_MASSIV_DEEP-1:0] OUT_RX_DATA_MASSIV ,
-	output reg OUT_RX_ERROR,
-	output reg [RX_MASSIV_DEEP_LOG_2:0] OUT_RX_NUM_OF_DATA_PACKS_READY,
+	input IN_RX_CLEAR_BUFFER,//сигнальная линия для очистки буфера принятых бит
+	output reg [NUM_OF_DATA_BITS_IN_PACK*RX_MASSIV_DEEP-1:0] OUT_RX_DATA_MASSIV,//выходной вектор принятых данных
+	output reg OUT_RX_ERROR,//сигнальная линия ошибки приема
+	output reg [RX_MASSIV_DEEP_LOG_2:0] OUT_RX_NUM_OF_DATA_PACKS_READY,//число принятых пакетов с момента последней очистки буфера
 	
-	output 		TX_PORT,
-	input			RX_PORT
+	output 		TX_PORT,//TX
+	input			RX_PORT//RX
 	
 );
 	wire [NUM_OF_DATA_BITS_IN_PACK-1:0] IN_UART_TX_DATA;
@@ -55,11 +55,14 @@ module UART_TX_RX_MASSIV_MODULE
 		.OUT_TX_SERIAL(TX_PORT)
 		
 	);
+	//состояния автомата для передачи пакетов 
 	localparam STATE_WAIT				=	2'b00;
 	localparam STATE_WRITE_PACKS		=	2'b01;
 	localparam STATE_WAIT_UART_DONE	=	2'b10;
+	
 	localparam NUM_OF_DATA_BITS_IN_PACK_LOG_2=$clog2(NUM_OF_DATA_BITS_IN_PACK);
-	reg	[1:0]		REG_TX_FSM_STATE;
+	
+	reg	[1:0]		REG_TX_FSM_STATE;//состояние автомата для переачи данных 
 	reg [RX_MASSIV_DEEP_LOG_2:0] REG_RX_PACK_COUNT;//счетчик приема пакетов
 	reg [TX_MASSIV_DEEP_LOG_2:0] REG_TX_PACK_COUNT;//счетчик отправки пакетов
 	reg	[NUM_OF_DATA_BITS_IN_PACK*TX_MASSIV_DEEP-1:0] REG_TX_DATA_MASSIV ;
@@ -147,17 +150,21 @@ module UART_TX_RX_MASSIV_MODULE
 	begin
 		if(IN_RX_CLEAR_BUFFER)
 		begin
-			OUT_RX_NUM_OF_DATA_PACKS_READY<=0;
+			OUT_RX_NUM_OF_DATA_PACKS_READY<=1;
 			OUT_RX_ERROR<=0;
 			OUT_RX_DATA_MASSIV<=0;
 		end
 		else
 		begin
-			OUT_RX_NUM_OF_DATA_PACKS_READY=OUT_RX_NUM_OF_DATA_PACKS_READY+1;
+			if (OUT_RX_NUM_OF_DATA_PACKS_READY<RX_MASSIV_DEEP)
+				OUT_RX_NUM_OF_DATA_PACKS_READY=OUT_RX_NUM_OF_DATA_PACKS_READY+1;
+			else 
+				OUT_RX_NUM_OF_DATA_PACKS_READY=1;//для избежания переполнения буфера
 			OUT_RX_DATA_MASSIV=ins_pack_in_vector(OUT_RX_DATA_MASSIV,OUT_UART_RX_DATA,OUT_RX_NUM_OF_DATA_PACKS_READY-1);
 			OUT_RX_ERROR=OUT_UART_RX_ERROR|OUT_RX_ERROR;
 		end
 	end
+	//функция- сепаратор пакета из вектора
 	function [NUM_OF_DATA_BITS_IN_PACK-1:0] sel_part_vector;
 		input [NUM_OF_DATA_BITS_IN_PACK*TX_MASSIV_DEEP-1:0] vector;
 		input [TX_MASSIV_DEEP_LOG_2:0] index;
@@ -169,6 +176,7 @@ module UART_TX_RX_MASSIV_MODULE
 			sel_part_vector=buffer;
 		end
 	endfunction
+	//функция- интегратор пакета в вектор
 	function [NUM_OF_DATA_BITS_IN_PACK*RX_MASSIV_DEEP-1:0] ins_pack_in_vector;
 		input [NUM_OF_DATA_BITS_IN_PACK*RX_MASSIV_DEEP-1:0] vector;
 		input [NUM_OF_DATA_BITS_IN_PACK-1:0] pack;
