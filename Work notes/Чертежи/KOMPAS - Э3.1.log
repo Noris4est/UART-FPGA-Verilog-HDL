@@ -1,0 +1,9 @@
+%%[ ProductName: Distiller ]%%
+%%[ Error: GOSTypeAU cannot be embedded because of licensing restrictions. ]%%
+%%[ Font vendor (ASCN) does not permit this font to be embedded in PDF. ]%%
+
+[Warning] The font GOSTypeAU could not be embedded because of licensing restrictions.
+Text may display incorrectly on platforms that do not have this font installed.
+
+%%[ Error: invalidfont; OffendingCommand: show; ErrorInfo: CharOffsets u%%[ Flushing: rest of job (to end-of-file) will be ignored ]%%
+%%[ Warning: PostScript error. No PDF file produced. ] %%
